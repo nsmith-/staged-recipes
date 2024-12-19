@@ -2,7 +2,7 @@
 # Using the name variable with the URL in line 16 is convenient
 # when copying and pasting from another recipe, but not really needed.
 {% set name = "cms-combine" %}
-{% set version = "9.2.0" %}
+{% set version = "10.0.2" %}
 
 package:
   name: {{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 80216c792f4f5c2c32e47114f8b5f20d11b73d5bb95abed391b6dae407cee40e
+  sha256: a6fecc8b4adc4e631425eeee7501d0258ab64ef36b24680696c2e6f8d38403e7
   folder: HiggsAnalysis/CombinedLimit
 
 build:
@@ -22,19 +22,17 @@ requirements:
     - make
     - {{ compiler('cxx') }}
   host:
-    - pandas
     - pip
-    - python<3.10  # due to root=6.22
-    - root=6.22
-    - boost
+    - python>3.9
+      # on hold until https://github.com/conda-forge/root-feedstock/issues/273
+    - root
     - boost-cpp
-    - root_base=6.22
     - eigen
-    - vdt<0.4.4  # due to root=6.22
-    - libcxx<12  # due to root=6.22
+    - vdt
 
   run:
     - python
+    - pandas
 
 test:
   imports:
